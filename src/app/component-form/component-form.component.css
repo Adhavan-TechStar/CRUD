@@ -1,0 +1,107 @@
+.onest-container {
+    font-family: "Onest", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: #1d6c9f;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border: 2px solid white;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid white;
+    background-color: #1d6c9f;
+    color: white;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: white;
+}
+
+.birthday-inputs {
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+}
+
+.birthday-inputs select, .birthday-inputs input {
+    width: 30%; /* Adjust input widths to make them more balanced */
+}
+
+.form-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    gap: 10px;
+    border-radius: 4px;
+}
+
+.btn-primary {
+    background-color: #dc2b2b;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    gap: 10px;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+    gap: 10px;
+}
+
+.text-danger {
+    color: red;
+    font-size: 12px;
+}

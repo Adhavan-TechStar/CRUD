@@ -1,0 +1,117 @@
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Onest&display=swap" rel="stylesheet">
+</head>
+  <div class="container onest-container">
+    <div class="container">
+            <h1>Registration Form</h1>
+            <form #form="ngForm" (ngSubmit)="submit(form)" novalidate>
+              <table class="table table-bordered form-table">
+                <tbody>
+                  <tr>
+                    <td><label for="firstname">First Name</label></td>
+                    <td>
+                      <input type="text" name="firstname" class="form-control" [(ngModel)]="currentUser.firstname" required minlength="2" maxlength="11" placeholder="Enter Your First Name">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="lastname">Last Name</label></td>
+                    <td>
+                      <input type="text" name="lastname" class="form-control" [(ngModel)]="currentUser.lastname" required minlength="2" maxlength="11" placeholder="Enter Your Last Name">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="age">Age</label></td>
+                    <td>
+                      <input type="number" name="age" class="form-control" [(ngModel)]="currentUser.age" required min="1" max="120" placeholder="Enter Your Age">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label>Gender</label></td>
+                    <td>
+                      <input type="radio" name="gender" [(ngModel)]="currentUser.gender" value="Male" required> Male
+                      <input type="radio" name="gender" [(ngModel)]="currentUser.gender" value="Female" required> Female
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="email">Email</label></td>
+                    <td>
+                      <input type="email" name="email" class="form-control" [(ngModel)]="currentUser.email" required placeholder="Enter Your Email">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="password">Password</label></td>
+                    <td>
+                      <input type="password" name="password" class="form-control" [(ngModel)]="currentUser.password" required placeholder="Your Password">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="confirmPassword">Confirm Password</label></td>
+                    <td>
+                      <input type="password" name="confirmPassword" class="form-control" [(ngModel)]="currentUser.confirmPassword" required placeholder="Confirm Your Password">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="birthday">Birthday</label></td>
+                    <td>
+                        <div class="birthday-inputs">
+                            <select name="month" class="form-control" [(ngModel)]="currentUser.month" required>
+                                <option value="" disabled selected>Month</option>
+                                <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+                            </select>
+                            <input type="number" name="day" class="form-control" [(ngModel)]="currentUser.day" placeholder="Day" min="1" max="31" required>
+                            <input type="number" name="year" class="form-control" [(ngModel)]="currentUser.year" placeholder="Year" min="1900" max="2024" required>
+                        </div>
+                        </td>
+                    </tr>
+                
+
+                  <tr>
+                    <td><label for="phone">Mobile Phone</label></td>
+                    <td>
+                      <input type="tel" name="phone" class="form-control" [(ngModel)]="currentUser.phone" placeholder="Enter Your Phone Number" required>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div>
+                <button class="btn btn-primary" type="submit" [disabled]="form.invalid">{{ editingIndex !== null ? 'Update' : 'Register' }}</button>
+                <button class="btn btn-secondary" type="reset" (click)="clear(form)">Clear</button>
+              </div>
+            </form>
+          
+            <div class="mt-4" *ngIf="registeredData.length > 0">
+              <h2>Registered Users</h2>
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Birthday</th>
+                    <th>Mobile Phone</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of registeredData; let i = index">
+                    <td>{{ user.firstname }}</td>
+                    <td>{{ user.lastname }}</td>
+                    <td>{{ user.age }}</td>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.birthday }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>
+                      <button class="btn btn-warning" (click)="editUser(i)">Edit</button>
+                      <button class="btn btn-danger" (click)="deleteUser(i)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
