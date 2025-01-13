@@ -1,0 +1,106 @@
+.onest-container {
+    font-family: "Onest", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1d6c9f;
+    padding: 40px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    border: 2px solid white;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid white;
+    background-color: #1d6c9f;
+    color: white;
+    box-sizing: border-box;
+}
+
+.form-control::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: white;
+}
+
+.text-danger {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.btn {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    gap: 10px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: #dc2b2b;
+    color: white;
+}
+
+.btn-primary:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.mt-3 {
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .login-container {
+        padding: 30px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}

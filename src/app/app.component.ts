@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ComponentFormComponent } from "./component-form/component-form.component";
-import { TestRequest } from '@angular/common/http/testing';
+import { RouterModule } from '@angular/router';
+import { ComponentFormComponent } from './component-form/component-form.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [ComponentFormComponent]
+  imports: [RouterModule, ComponentFormComponent]
 })
 export class AppComponent {
   title = 'regform';

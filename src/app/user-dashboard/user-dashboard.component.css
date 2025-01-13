@@ -1,0 +1,7 @@
+/* Apply the Onest font to any element with the class 'onest-font' */
+.onest-font {
+    font-family: "Onest", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}

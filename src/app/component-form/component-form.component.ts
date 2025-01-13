@@ -1,15 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-component-form',
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './component-form.component.html',
-  styleUrls: ['./component-form.component.css']
+  styleUrls: ['./component-form.component.css'],
 })
-export class ComponentFormComponent {
+export class ComponentFormComponent implements OnInit {
   registeredData: any[] = [];
   editingIndex: number | null = null;
   currentUser: any = {
@@ -30,6 +32,24 @@ export class ComponentFormComponent {
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
+
+  constructor(private userService: UserService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.fetchRegisteredData(); // Fetch data on component initialization
+  }
+
+  fetchRegisteredData(): void {
+    this.userService.getUsers().subscribe(
+      (data) => {
+        this.registeredData = data;
+        console.log('Fetched registered data:', data);
+      },
+      (error) => {
+        console.error('Error fetching registered data:', error);
+      }
+    );
+  }
 
   submit(form: NgForm) {
     if (form.valid) {
@@ -52,7 +72,8 @@ export class ComponentFormComponent {
     }
   }
 
-  resetForm() {
+
+  resetForm(): void {
     this.currentUser = {
       firstname: '',
       lastname: '',
@@ -69,25 +90,37 @@ export class ComponentFormComponent {
     this.editingIndex = null;
   }
 
-  clear(form: NgForm) {
+  clear(form: NgForm): void {
     this.resetForm();
     form.resetForm();
-    console.log("Form cleared.");
+    console.log('Form cleared.');
   }
 
-  clearAll() {
+  clearAll(): void {
     this.registeredData = [];
-    console.log("All registered data cleared.");
+    console.log('All registered data cleared.');
   }
 
-  deleteUser(index: number) {
-    this.registeredData.splice(index, 1);
-    console.log(`User at index ${index} deleted.`);
+  deleteUser(index: number): void {
+    const userId = this.registeredData[index].id;
+    this.userService.deleteUser(userId).subscribe(
+      () => {
+        alert('User deleted successfully!');
+        this.fetchRegisteredData(); // Refresh data
+      },
+      (error) => {
+        alert('Error deleting user: ' + error.message);
+      }
+    );
   }
 
-  editUser(index: number) {
+  editUser(index: number): void {
     this.currentUser = { ...this.registeredData[index] }; // Populate current user for editing
     this.editingIndex = index;
     console.log(`Editing user at index ${index}`);
+  }
+
+  navigateToLogin(): void {
+    this.router.navigate(['/login']);
   }
 }
