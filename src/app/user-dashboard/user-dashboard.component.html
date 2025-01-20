@@ -1,8 +1,54 @@
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Onest&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Onest&display=swap"
+    rel="stylesheet"
+  />
 </head>
-<body>
-    <p class="onest-font">Welcome!</p> <!-- Apply the class to the paragraph -->
-</body>
+<div class="onest-container">
+  <header class="container header">
+    <div class="logo">E-Shop</div>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for products..." class="form-control" />
+    </div>
+    <nav class="nav-menu">
+      <!-- Existing Categories with routing links -->
+      <a routerLink="/men" class="nav-link">Men</a>
+      <a routerLink="/women" class="nav-link">Women</a>
+      <a routerLink="/electronics" class="nav-link">Electronics</a>
+      <a routerLink="/offers" class="nav-link">Offers</a>
+<!-- Example link showing the cart count -->
+<a [routerLink]="'/cart'" class="nav-link cart">
+  Cart ({{ cartCount$ | async }})
+</a>
+
+
+    </nav>
+  </header>
+
+  <section class="container hero">
+    <h1>Welcome to E-Shop!</h1>
+    <p>Explore the best deals and newest arrivals.</p>
+    <button class="btn btn-primary">Shop Now</button>
+  </section>
+
+  <section class="container featured-products">
+    <h2>Featured Products</h2>
+    <div class="products-grid">
+      <div *ngFor="let product of products" class="product-card">
+        <img [src]="product.imageUrl" alt="Product Image" />
+        <h3>{{ product.name }}</h3>
+        <p>${{ product.price }}</p>
+        <button class="btn btn-secondary" (click)="addToCart(product)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container footer">
+    <p>&copy; 2025 E-Shop. All rights reserved.</p>
+    <p>
+      <a href="#">Privacy Policy</a> | <a href="#">Terms & Conditions</a>
+    </p>
+  </footer>
+</div>

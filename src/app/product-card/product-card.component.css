@@ -1,0 +1,14 @@
+.product-card {
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  

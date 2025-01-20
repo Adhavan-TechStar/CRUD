@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ComponentFormComponent } from './component-form/component-form.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  imports: [RouterModule, ComponentFormComponent]
+  imports: [RouterModule,]
 })
 export class AppComponent {
   title = 'regform';
