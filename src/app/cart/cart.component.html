@@ -1,33 +1,40 @@
 <div *ngIf="(cartItems$ | async) as cartItems; else emptyCart">
-  <div class="cart-item-list">
-    <div class="cart-item" *ngFor="let item of cartItems">
-      <img [src]="item?.imageUrl" alt="Product Image" class="product-image" />
-      <h3>{{ item?.name }}</h3>
-      <p>Price: ${{ item?.price }}</p>
+  <div class="cart-container">
+    <div class="cart-item-list">
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <img [src]="item?.imageUrl" alt="Product Image" class="product-image" />
+        <h3>{{ item?.name }}</h3>
+        <p class="item-price">Price: ${{ item?.price }}</p>
 
-      <!-- Quantity input with two-way binding -->
-      <input
-        type="number"
-        class="quantity-input"
-        [(ngModel)]="item.quantity"
-        min="1"
-        (ngModelChange)="updateItemQuantity(item, item?.quantity ?? 0)"
-      />
+        <!-- Quantity input with two-way binding -->
+        <input
+          type="number"
+          class="quantity-input"
+          [(ngModel)]="item.quantity"
+          min="1"
+          (ngModelChange)="updateItemQuantity(item, item?.quantity ?? 0)"
+        />
 
-      <!-- Display total price per item -->
-      <p>Total: ${{ (item?.price ?? 0) * (item?.quantity ?? 0) }}</p>
+        <!-- Display total price per item -->
+        <p class="item-total">Total: ${{ (item?.price ?? 0) * (item?.quantity ?? 0) }}</p>
 
-      <!-- Display stock status -->
-      <!-- <p *ngIf="item?.inStock">In Stock</p>
-      <p *ngIf="!item?.inStock">Out of Stock</p> -->
+        <!-- Remove button -->
+        <button class="remove-btn" (click)="removeItem(item)">Remove</button>
+      </div>
+    </div>
 
-      <!-- Remove button -->
-      <button (click)="removeItem(item)">Remove</button>
+    <!-- Display the total price of the cart -->
+    <div class="cart-total">
+      <h3>Total Price: ${{ calculateTotal(cartItems) }}</h3>
+      <button class="checkout-btn" (click)="checkout()">Proceed to Checkout</button>
     </div>
   </div>
 </div>
 
 <!-- Empty Cart message -->
 <ng-template #emptyCart>
-  <p>Your cart is empty!</p>
+  <div class="empty-cart">
+    <img src="https://via.placeholder.com/150/FF6347/FFFFFF?text=Cart+is+Empty" alt="Empty Cart" class="empty-cart-image" />
+    <p>Your cart is empty!</p>
+  </div>
 </ng-template>
