@@ -15,10 +15,7 @@ export class CartService {
   private cartItems: CartItem[] = [];
   private cartItemsSubject: BehaviorSubject<CartItem[]> = new BehaviorSubject<CartItem[]>(this.cartItems);
   private cartCountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private apiUrl = 'https://localhost:7122/api/products/cart-items'; // Backend URL
-  constructor(private http: HttpClient) {
-    this.updateCartCount(); // Ensure the count is updated initially
-  }
+
   // Emit updated cart count
   private updateCartCount(): void {
     const total = this.cartItems.reduce((count, item) => count + item.quantity, 0);
