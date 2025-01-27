@@ -44,6 +44,13 @@ export class AuthService {
   }
 
   /**
+   * Synchronous check for user authentication status.
+   */
+  isUserAuthenticated(): boolean {
+    return this.checkTokenValidity();
+  }
+
+  /**
    * Get the authentication token from local storage.
    */
   getAuthToken(): string | null {
@@ -102,5 +109,36 @@ export class AuthService {
       alert('Session expired. Please log in again.');
       this.logout();
     }
+  }
+
+  /**
+   * Automatically extend session validity by refreshing the token.
+   */
+  refreshAuthToken(): Observable<any> {
+    const token = this.getAuthToken();
+    if (!token) return new Observable(observer => observer.error('No token found'));
+
+    return this.http.post(`${this.apiUrl}/refresh-token`, { token });
+  }
+
+  /**
+   * Automatically refresh the token and save it.
+   */
+  autoRefreshToken(): void {
+    this.refreshAuthToken().subscribe(
+      (response: any) => {
+        if (response && response.token) {
+          this.setAuthToken(response.token); // Save new token
+          console.log('Token refreshed successfully.');
+        } else {
+          console.error('Failed to refresh token.');
+          this.logout();
+        }
+      },
+      (error) => {
+        console.error('Error refreshing token:', error);
+        this.logout();
+      }
+    );
   }
 }

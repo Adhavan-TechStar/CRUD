@@ -14,5 +14,9 @@ export class ProductService {
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+  getProductsByCategory(category: string): Observable<any[]> {
+    const url = `${this.apiUrl}?category=${category}`; // Assuming your API supports category-based filtering
+    return this.http.get<any[]>(url);
+  }
 }
 

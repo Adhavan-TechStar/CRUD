@@ -1,0 +1,13 @@
+<p>men works!</p>
+<section class="container featured-products">
+    <h2>Men's Products</h2>
+    <div class="products-grid">
+      <div *ngFor="let product of products" class="product-card">
+        <img [src]="product.imageUrl" alt="Product Image" />
+        <h3>{{ product.name }}</h3>
+        <p>${{ product.price }}</p>
+        <button class="btn btn-secondary" (click)="addToCart(product)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+  

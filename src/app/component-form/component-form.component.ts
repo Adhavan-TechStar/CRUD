@@ -7,7 +7,7 @@ import { UserService } from '../user.service';
 @Component({
   selector: 'app-component-form',
   standalone: true,
-  imports: [FormsModule, CommonModule,RouterModule],
+  imports: [FormsModule, CommonModule, RouterModule],
   templateUrl: './component-form.component.html',
   styleUrls: ['./component-form.component.css'],
 })
@@ -36,14 +36,13 @@ export class ComponentFormComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    this.fetchRegisteredData(); // Fetch data on component initialization
+    this.fetchRegisteredData();
   }
 
   fetchRegisteredData(): void {
     this.userService.getUsers().subscribe(
       (data) => {
         this.registeredData = data;
-        console.log('Fetched registered data:', data);
       },
       (error) => {
         console.error('Error fetching registered data:', error);
@@ -51,27 +50,33 @@ export class ComponentFormComponent implements OnInit {
     );
   }
 
-  submit(form: NgForm) {
+  submit(form: NgForm): void {
     if (form.valid) {
+      const emailExists = this.registeredData.some(
+        (user) => user.email === this.currentUser.email
+      );
+
+      if (emailExists) {
+        alert('Email already registered. Please use another email.');
+        return;
+      }
+
       const { month, day, year } = this.currentUser;
       this.currentUser.birthday = `${month} ${day}, ${year}`;
 
       if (this.editingIndex !== null) {
-        // Update existing user
         this.registeredData[this.editingIndex] = { ...this.currentUser };
-        this.editingIndex = null; // Reset editing index
+        this.editingIndex = null;
       } else {
-        // Add new user
         this.registeredData.push({ ...this.currentUser });
       }
 
       this.resetForm();
-      console.log("Form submitted successfully!", this.registeredData);
+      alert('Registration successful!');
     } else {
-      console.log("Form is invalid.");
+      alert('Please fill in all required fields.');
     }
   }
-
 
   resetForm(): void {
     this.currentUser = {
@@ -93,12 +98,10 @@ export class ComponentFormComponent implements OnInit {
   clear(form: NgForm): void {
     this.resetForm();
     form.resetForm();
-    console.log('Form cleared.');
   }
 
   clearAll(): void {
     this.registeredData = [];
-    console.log('All registered data cleared.');
   }
 
   deleteUser(index: number): void {
@@ -106,7 +109,7 @@ export class ComponentFormComponent implements OnInit {
     this.userService.deleteUser(userId).subscribe(
       () => {
         alert('User deleted successfully!');
-        this.fetchRegisteredData(); // Refresh data
+        this.fetchRegisteredData();
       },
       (error) => {
         alert('Error deleting user: ' + error.message);
@@ -115,9 +118,8 @@ export class ComponentFormComponent implements OnInit {
   }
 
   editUser(index: number): void {
-    this.currentUser = { ...this.registeredData[index] }; // Populate current user for editing
+    this.currentUser = { ...this.registeredData[index] };
     this.editingIndex = index;
-    console.log(`Editing user at index ${index}`);
   }
 
   navigateToLogin(): void {
