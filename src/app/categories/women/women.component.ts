@@ -1,11 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../services/product.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-women',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './women.component.html',
-  styleUrl: './women.component.css'
+  styleUrl: './women.component.css',
+  
 })
-export class WomenComponent {
+export class WomenComponent implements OnInit { 
+  products: any[] = []; // This array will hold the filtered products for Men
 
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService
+  ) {}
+
+  ngOnInit(): void {
+    // Fetch only the products belonging to the Women category
+    this.productService.getProductsByCategory('Women').subscribe(
+      (data) => {
+        console.log('Fetched products for Women category:', data); // Debug the response
+        this.products = data; // Assign the filtered products to the products array
+        console.log('Products assigned to component:', this.products); // Confirm component data
+      },
+      (error) => {
+        console.error('Error fetching products:', error); // Handle any errors
+      }
+    );
+  }
+
+  addToCart(product: any): void {
+    this.cartService.addToCart(product);
+    console.log(`${product.name} added to cart.`);
+  }
 }

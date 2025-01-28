@@ -1,1 +1,25 @@
-<p>women works!</p>
+<section class="container featured-products">
+    <h2 class="section-heading">Women's Products</h2>
+  
+    <!-- Check if products are available -->
+    <div class="products-grid" *ngIf="products.length > 0; else noProducts">
+      <div *ngFor="let product of products" class="product-card">
+        <!-- Product image -->
+        <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p class="product-price"><strong>Price:</strong> ${{ product.price }}</p>
+        <button
+          class="btn btn-secondary add-to-cart-button"
+          (click)="addToCart(product)"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  
+    <!-- Show a message if no products are found -->
+    <ng-template #noProducts>
+      <p class="no-products-message">No products available in the Women's category.</p>
+    </ng-template>
+  </section>
+  

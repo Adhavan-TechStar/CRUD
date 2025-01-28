@@ -1,13 +1,24 @@
-<p>men works!</p>
 <section class="container featured-products">
-    <h2>Men's Products</h2>
-    <div class="products-grid">
-      <div *ngFor="let product of products" class="product-card">
-        <img [src]="product.imageUrl" alt="Product Image" />
-        <h3>{{ product.name }}</h3>
-        <p>${{ product.price }}</p>
-        <button class="btn btn-secondary" (click)="addToCart(product)">Add to Cart</button>
-      </div>
+  <h2 class="section-heading">Men's Products</h2>
+
+  <!-- Check if products are available -->
+  <div class="products-grid" *ngIf="products.length > 0; else noProducts">
+    <div *ngFor="let product of products" class="product-card">
+      <!-- Product image -->
+      <img [src]="product.imageUrl" [alt]="product.name" class="product-image" />
+        <h3 class="product-name">{{ product.name }}</h3>
+        <p class="product-price"><strong>Price:</strong> ${{ product.price }}</p>
+      <button
+        class="btn btn-secondary add-to-cart-button"
+        (click)="addToCart(product)"
+      >
+        Add to Cart
+      </button>
     </div>
-  </section>
-  
+  </div>
+
+  <!-- Show a message if no products are found -->
+  <ng-template #noProducts>
+    <p class="no-products-message">No products available in the Men's category.</p>
+  </ng-template>
+</section>

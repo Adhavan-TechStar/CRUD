@@ -3,20 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProductService {
+  private apiUrl = 'https://localhost:7122/api/products'; // Base API URL
 
-  private apiUrl = 'https://localhost:7122/api/products'; // Replace with your API endpoint
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
+  // Fetch all products
   getProducts(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  // Fetch products by category
   getProductsByCategory(category: string): Observable<any[]> {
-    const url = `${this.apiUrl}?category=${category}`; // Assuming your API supports category-based filtering
-    return this.http.get<any[]>(url);
+    const url = `${this.apiUrl}/category/${category}`;
+    console.log('Fetching products by category:', url); // Debug the API URL
+    return this.http.get<any[]>(url); // Return the filtered products
   }
 }
-
